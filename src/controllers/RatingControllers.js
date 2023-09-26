@@ -1,5 +1,5 @@
 const Rating = require('../models/RatingModels');
-const config = require('../../config');
+const config = require('../config');
 const {listLanguages} = config;
 
 exports.listRating = function(req, res){

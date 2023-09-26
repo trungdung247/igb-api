@@ -1,106 +1,163 @@
+"use strict";
+
 const express = require('express');
 const router = express.Router();
 const {
-    UserValidator, ProjectValidator, OutstandingValidator, ServiceValidator, 
-    InformationValidator, ActivityValidator, PartnerValidator, ProgramValidator,
-    AchievementValidator, CapacityValidator, RatingValidator, TeamValidator
+  UserValidator,
+  ProjectValidator,
+  OutstandingValidator,
+  ServiceValidator,
+  InformationValidator,
+  ActivityValidator,
+  PartnerValidator,
+  ProgramValidator,
+  AchievementValidator,
+  CapacityValidator,
+  RatingValidator,
+  TeamValidator
 } = require('../validators/validator');
-const {register, login, logout} = require('../controllers/UserControllers');
-const {uploadImage} = require('../controllers/ImageControllers');
-const {getConfig} = require('../controllers/MainControllers');
 const {
-    createInformation, listInformationAdmin, 
-    detailInformationAdmin, editInformation
+  register,
+  login,
+  logout
+} = require('../controllers/UserControllers');
+const {
+  uploadImage
+} = require('../controllers/ImageControllers');
+const {
+  getConfig
+} = require('../controllers/MainControllers');
+const {
+  createInformation,
+  listInformationAdmin,
+  detailInformationAdmin,
+  editInformation
 } = require('../controllers/InformationControllers');
 const {
-    listProject, listProjectAdmin, 
-    detailProject, detailProjectAdmin,
-    createProject, editProject, deleteProject
+  listProject,
+  listProjectAdmin,
+  detailProject,
+  detailProjectAdmin,
+  createProject,
+  editProject,
+  deleteProject
 } = require('../controllers/ProjectControllers');
 const {
-    listService, listServiceAdmin, 
-    detailService, detailServiceAdmin,
-    createService, editService, deleteService
+  listService,
+  listServiceAdmin,
+  detailService,
+  detailServiceAdmin,
+  createService,
+  editService,
+  deleteService
 } = require('../controllers/ServiceControllers');
 const {
-    listOutstanding, listOutstandingAdmin, 
-    detailOutstandingAdmin, createOutstanding, 
-    editOutstanding, deleteOutstanding
+  listOutstanding,
+  listOutstandingAdmin,
+  detailOutstandingAdmin,
+  createOutstanding,
+  editOutstanding,
+  deleteOutstanding
 } = require('../controllers/OutstandingControllers');
 const {
-    listActivity, listActivityAdmin, 
-    detailActivity, detailActivityAdmin,
-    createActivity, editActivity, deleteActivity
+  listActivity,
+  listActivityAdmin,
+  detailActivity,
+  detailActivityAdmin,
+  createActivity,
+  editActivity,
+  deleteActivity
 } = require('../controllers/ActivityControllers');
 const {
-    listPartner, listPartnerAdmin, detailPartnerAdmin,
-    createPartner, editPartner, deletePartner
+  listPartner,
+  listPartnerAdmin,
+  detailPartnerAdmin,
+  createPartner,
+  editPartner,
+  deletePartner
 } = require('../controllers/PartnerControllers');
 const {
-    listProgram, listProgramAdmin, 
-    detailProgramAdmin, createProgram, 
-    editProgram, deleteProgram
+  listProgram,
+  listProgramAdmin,
+  detailProgramAdmin,
+  createProgram,
+  editProgram,
+  deleteProgram
 } = require('../controllers/ProgramControllers');
 const {
-    listAchievement, listAchievementAdmin, 
-    detailAchievementAdmin, createAchievement, 
-    editAchievement, deleteAchievement
+  listAchievement,
+  listAchievementAdmin,
+  detailAchievementAdmin,
+  createAchievement,
+  editAchievement,
+  deleteAchievement
 } = require('../controllers/AchievementControllers');
 const {
-    listCapacity, listCapacityAdmin, 
-    detailCapacityAdmin, createCapacity, 
-    editCapacity, deleteCapacity
+  listCapacity,
+  listCapacityAdmin,
+  detailCapacityAdmin,
+  createCapacity,
+  editCapacity,
+  deleteCapacity
 } = require('../controllers/CapacityControllers');
 const {
-    listRating, listRatingAdmin, 
-    detailRatingAdmin, createRating, 
-    editRating, deleteRating
+  listRating,
+  listRatingAdmin,
+  detailRatingAdmin,
+  createRating,
+  editRating,
+  deleteRating
 } = require('../controllers/RatingControllers');
 const {
-    listTeam, listTeamAdmin, detailTeamAdmin,
-    createTeam, editTeam, deleteTeam
+  listTeam,
+  listTeamAdmin,
+  detailTeamAdmin,
+  createTeam,
+  editTeam,
+  deleteTeam
 } = require('../controllers/TeamControllers');
 
 // ------ Config multer ---------
 const multer = require("multer");
-const { multerStorage, multerFilter } = require('../config/configMulter');
+const {
+  multerStorage,
+  multerFilter
+} = require('../config/configMulter');
 const upload = multer({
-    storage: multerStorage,
-    fileFilter: multerFilter,
+  storage: multerStorage,
+  fileFilter: multerFilter
 });
 // ------------------------------
 
 // ----- API User -----
-function requiresLogout(req, res, next){
-    if (req.session && req.session.user) {
-        return res.send({
-            status: res.statusCode,
-            success: false,
-            results: {
-                data: null,
-                message: 'You must be Logout in to Login continue',
-            }
-        });      
-    } else {
-        return next();
-    }
+function requiresLogout(req, res, next) {
+  if (req.session && req.session.user) {
+    return res.send({
+      status: res.statusCode,
+      success: false,
+      results: {
+        data: null,
+        message: 'You must be Logout in to Login continue'
+      }
+    });
+  } else {
+    return next();
+  }
 }
-
 function requiresLogin(req, res, next) {
-    if (req.session && req.session.user) {
-        return next();
-    } else {
-        return res.send({
-            status: res.statusCode,
-            success: false,
-            results: {
-                data: null,
-                message: 'You must be logged in to view this page.',
-            }
-        });  
-    }
+  if (req.session && req.session.user) {
+    return next();
+  } else {
+    return res.send({
+      status: res.statusCode,
+      success: false,
+      results: {
+        data: null,
+        message: 'You must be logged in to view this page.'
+      }
+    });
+  }
 }
-
 router.post('/register', UserValidator, register);
 router.post('/login', requiresLogout, login);
 router.get('/logout', requiresLogin, logout);
@@ -108,21 +165,20 @@ router.get('/logout', requiresLogin, logout);
 
 // ----- API Upload -----
 function requiresUploadImage(req, res, next) {
-    upload.single("image")(req, res, function (err) {
-        if (err) {
-            return res.send({
-                status: 500,
-                success: false,
-                results: {
-                    data: null,
-                    message: (err instanceof multer.MulterError ? multer.MulterError : "Error: You not Upload Image!!")
-                }
-            });
+  upload.single("image")(req, res, function (err) {
+    if (err) {
+      return res.send({
+        status: 500,
+        success: false,
+        results: {
+          data: null,
+          message: err instanceof multer.MulterError ? multer.MulterError : "Error: You not Upload Image!!"
         }
-        return next();
-    })
+      });
+    }
+    return next();
+  });
 }
-
 router.post('/upload-image', requiresUploadImage, uploadImage);
 // ------------------------
 
@@ -133,7 +189,7 @@ router.get('/get-config', getConfig);
 // ------------ API Information ---------
 router.post('/create-information', requiresLogin, InformationValidator, createInformation);
 router.get('/admin-information', requiresLogin, listInformationAdmin);
-router.get('/admin-detail-information',requiresLogin, detailInformationAdmin);
+router.get('/admin-detail-information', requiresLogin, detailInformationAdmin);
 router.post('/edit-information', requiresLogin, editInformation);
 // -----------------------------------
 
@@ -141,7 +197,7 @@ router.post('/edit-information', requiresLogin, editInformation);
 router.get('/project', listProject);
 router.get('/detail-project', detailProject);
 router.get('/admin-project', requiresLogin, listProjectAdmin);
-router.get('/admin-detail-project',requiresLogin, detailProjectAdmin);
+router.get('/admin-detail-project', requiresLogin, detailProjectAdmin);
 router.post('/create-project', requiresLogin, ProjectValidator, createProject);
 router.post('/edit-project', requiresLogin, ProjectValidator, editProject);
 router.post('/delete-project', requiresLogin, deleteProject);
@@ -151,7 +207,7 @@ router.post('/delete-project', requiresLogin, deleteProject);
 router.get('/service', listService);
 router.get('/detail-service', detailService);
 router.get('/admin-service', requiresLogin, listServiceAdmin);
-router.get('/admin-detail-service',requiresLogin, detailServiceAdmin);
+router.get('/admin-detail-service', requiresLogin, detailServiceAdmin);
 router.post('/create-service', requiresLogin, ServiceValidator, createService);
 router.post('/edit-service', requiresLogin, ServiceValidator, editService);
 router.post('/delete-service', requiresLogin, deleteService);
@@ -230,17 +286,15 @@ router.post('/edit-team', requiresLogin, TeamValidator, editTeam);
 router.post('/delete-team', requiresLogin, deleteTeam);
 // -----------------------------------
 
-
 // ------ API Check Url found --------
 router.all("*", function (req, res) {
-    return res.send({
-        status: 404,
-        success: false,
-        results: {
-            data: null,
-            message: "Page not found"
-        }
-    });
+  return res.send({
+    status: 404,
+    success: false,
+    results: {
+      data: null,
+      message: "Page not found"
+    }
+  });
 });
-
 module.exports = router;

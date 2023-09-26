@@ -1,5 +1,5 @@
 const Achievement = require('../models/AchievementModels');
-const config = require('../../config');
+const config = require('../config');
 const {pathImage} = config;
 
 exports.listAchievement = function(req, res){

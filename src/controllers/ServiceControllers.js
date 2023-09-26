@@ -1,5 +1,5 @@
 const Service = require('../models/ServiceModels');
-const config = require('../../config');
+const config = require('../config');
 const {pathImage, listLanguages} = config;
 
 exports.listService = function(req, res){

@@ -1,5 +1,5 @@
 const Partner = require('../models/PartnerModels');
-const config = require('../../config');
+const config = require('../config');
 const {pathImage} = config;
 
 exports.listPartner = function(req, res){

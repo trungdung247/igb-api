@@ -1,5 +1,5 @@
 const Activity = require('../models/ActivityModels');
-const config = require('../../config');
+const config = require('../config');
 const {pathImage, listLanguages} = config;
 
 exports.listActivity = function(req, res){

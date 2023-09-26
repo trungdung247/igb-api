@@ -1,7 +1,7 @@
 const Information = require('../models/InformationModels');
 const Service = require('../models/ServiceModels');
 const Project = require('../models/ProjectModels');
-const config = require('../../config');
+const config = require('../config');
 const {pathImage, listLanguages} = config;
 
 exports.getConfig = async function(req, res){

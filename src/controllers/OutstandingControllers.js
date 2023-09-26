@@ -1,5 +1,5 @@
 const Outstanding = require('../models/OutstandingModels');
-const config = require('../../config');
+const config = require('../config');
 const {listLanguages} = config;
 
 exports.listOutstanding = function(req, res){

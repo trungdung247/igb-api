@@ -12,7 +12,7 @@ const cors = require("cors");
 const path = require('path');
 
 const app = express();
-const config = require('./config');
+const config = require('./src/config');
 const {port, allowedDomains} = config;
 const PORT = port || 8797;
 const db = mongoose.connection;

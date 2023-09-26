@@ -1,5 +1,5 @@
 const Team = require('../models/TeamModels');
-const config = require('../../config');
+const config = require('../config');
 const {pathImage} = config;
 
 exports.listTeam = function(req, res){

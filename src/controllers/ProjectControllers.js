@@ -1,5 +1,5 @@
 const Project = require('../models/ProjectModels');
-const config = require('../../config');
+const config = require('../config');
 const {pathImage, listLanguages} = config;
 
 exports.listProject = function(req, res){

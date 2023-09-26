@@ -1,5 +1,5 @@
 const Program = require('../models/ProgramModels');
-const config = require('../../config');
+const config = require('../config');
 const {pathImage} = config;
 
 exports.listProgram = function(req, res){

@@ -1,5 +1,5 @@
 const Capacity = require('../models/CapacityModels');
-const config = require('../../config');
+const config = require('../config');
 const {listLanguages} = config;
 
 exports.listCapacity = function(req, res){

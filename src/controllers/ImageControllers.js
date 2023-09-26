@@ -1,5 +1,5 @@
 const Image = require('../models/ImageModels');
-const config = require('../../config');
+const config = require('../config');
 const {pathImage} = config;
 
 exports.uploadImage = function(req, res){
