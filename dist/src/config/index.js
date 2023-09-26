@@ -1,11 +1,11 @@
 "use strict";
 
+const dotenv = require('dotenv');
+dotenv.config();
 module.exports = {
-  urlDB: process.env.DB_URL,
-  port: process.env.SERVER_PORT,
-  local_client_app: process.env.LOCAL_CLIENT_APP,
-  remote_client_app: process.env.REMOTE_CLIENT_APP,
-  allowedDomains: process.env.NODE_ENV === 'production' ? [process.env.REMOTE_CLIENT_APP, process.env.REMOTE_SERVER_API] : [process.env.LOCAL_CLIENT_APP, process.env.LOCAL_SERVER_API],
-  pathImage: process.env.NODE_ENV === 'production' ? process.env.REMOTE_SERVER_API : process.env.LOCAL_SERVER_API,
+  DB_URL: process.env.DB_URL,
+  PORT: process.env.PORT || 8797,
+  HOST: process.env.HOST,
+  pathImage: process.env.HOST,
   listLanguages: ["vi", "en"]
 };

@@ -1,6 +1,4 @@
 const express = require('express');
-const dotenv = require('dotenv');
-dotenv.config();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
@@ -13,12 +11,11 @@ const path = require('path');
 
 const app = express();
 const config = require('./src/config');
-const {port, allowedDomains} = config;
-const PORT = port || 8797;
+const {PORT, DB_URL} = config;
 const db = mongoose.connection;
 
 //connect db
-mongoose.connect(process.env.DB_URL, { 
+mongoose.connect(DB_URL, { 
     useNewUrlParser: false,
     useUnifiedTopology: true 
 }).then(() => console.log('DB Connected!'));
