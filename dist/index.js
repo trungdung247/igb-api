@@ -68,7 +68,7 @@ const server = http.createServer(app);
 const onListening = () => {
   const addr = server.address();
   const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
-  console.log(`Server API started!! Listening on ${bind}`);
+  console.log(`Listening on ${bind}\nServer API started!!`);
 };
 server.listen(port);
 server.on('listening', onListening);
