@@ -6,8 +6,8 @@ const {pathImage, listLanguages} = config;
 
 exports.getConfig = async function(req, res){
     const colInfo = 'key content_vi content_en sapo_vi';
-    const colSer = 'title_vi title_en sapo_vi sapo_en detail_vi detail_en';
-    const colPro = 'title_vi title_en sapo_vi sapo_en detail_vi detail_en image';
+    const colSer = 'image title_vi title_en sapo_vi sapo_en detail_vi detail_en';
+    const colPro = 'image title_vi title_en sapo_vi sapo_en detail_vi detail_en';
     let listInformations = [];
     let listServices = [];
     let listProjects = [];
@@ -37,6 +37,7 @@ exports.getConfig = async function(req, res){
                 const item = result[i];
                 listServices.push({
                     id: item?.id,
+                    image: item?.image ? pathImage + item.image : "",
                     translation: []
                 });
                 for(let j = 0; j < listLanguages.length; j++){
